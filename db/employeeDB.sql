@@ -30,7 +30,7 @@ CREATE TABLE employee (
     INDEX man_id (manager_id),
     -- foreign key references cascade
     CONSTRAINT fk_manager FOREIGN KEY (manager_id) REFERENCES employee(id) ON DELETE CASCADE
-)
+);
 
 INSERT INTO department (name)
 VALUE ("Legal");
@@ -63,13 +63,13 @@ VALUE ("Marisa", "Smith", 2, null);
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUE ("Jeffrey", "Goldblum", 3, null);
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUE ("Annmarie", "Schrader", 4, 1);
+VALUE ("Annmarie", "Schrader", 4, null);
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUE ("Fred", "Flinstone", 5, 2);
+VALUE ("Fred", "Flinstone", 5, 4);
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUE ("Barney", "Rubble", 6, 3);
+VALUE ("Barney", "Rubble", 6, 1);
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUE ("Patrick", "Star", 7, 4);
+VALUE ("Patrick", "Star", 7, 2);
 
 SELECT * FROM department;
 SELECT * FROM role;
