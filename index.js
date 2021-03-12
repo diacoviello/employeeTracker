@@ -123,10 +123,10 @@ const addEmployee = () => {
       var roleId = selectRole().indexOf(val.role) + 1;
       var managerId = selectManager().indexOf(val.choice) + 1;
       connection.query(
-        "INSERT INTO employee SET ?",
+        "INSERT INTO employee SET ? ",
         {
-          first_name: val.firstName,
-          last_name: val.lastName,
+          first_name: val.firstname,
+          last_name: val.lastname,
           manager_id: managerId,
           role_id: roleId,
         },
@@ -180,7 +180,7 @@ const addRole = () => {
         ])
         .then((res) => {
           connection.query(
-            "INSERT INTO role SET ?",
+            "INSERT INTO role SET ? ",
             {
               title: res.Title,
               salary: res.Salary,
@@ -225,7 +225,7 @@ const update = () => {
         .then((val) => {
           var roleId = selectRole().indexOf(val.role) + 1;
           connection.query(
-            "UPDATE employee SET WHERE ?",
+            "UPDATE employee SET WHERE ? ",
             {
               last_name: val.lastName,
             },
