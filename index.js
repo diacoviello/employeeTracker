@@ -2,6 +2,7 @@ const connection = require("./db/connection");
 const mysql = require("mysql");
 const inquirer = require("inquirer");
 
+var deptArr = [];
 var roleArr = [];
 var managerArr = [];
 
@@ -163,7 +164,7 @@ const addDept = () => {
 
 const addRole = () => {
   connection.query(
-    "SELECT role.title AS Title, role.salary AS Salary FROM role",
+    "SELECT role.title AS Title, role.salary AS Salary, role.department_id AS Department FROM role",
     (err, res) => {
       inquirer
         .prompt([
@@ -177,6 +178,12 @@ const addRole = () => {
             type: "input",
             message: "What is the Salary?",
           },
+          {
+            name: "department",
+            type: "rawlist",
+            message: "What is the role's department?",
+            choices: selectDept(),
+          },
         ])
         .then((res) => {
           connection.query(
@@ -184,6 +191,7 @@ const addRole = () => {
             {
               title: res.Title,
               salary: res.Salary,
+              department_id: res.department
             },
             (err) => {
               if (err) throw err;
@@ -206,14 +214,14 @@ const update = () => {
           {
             name: "lastName",
             type: "rawlist",
+            message: "What is the Employee's last name? ",
             choices: () => {
               var lastName = [];
               for (var i = 0; i < res.length; i++) {
                 lastName.push(res[i].last_name);
               }
               return lastName;
-            },
-            message: "What is the Employee's last name? ",
+            }
           },
           {
             name: "role",
@@ -240,6 +248,16 @@ const update = () => {
         });
     }
   );
+};
+
+const selectDept = () => {
+  connection.query("SELECT * FROM department", (err, res) => {
+    if (err) throw err;
+    for (var i = 0; i < res.length; i++) {
+      deptArr.push(res[i].name);
+    }
+  });
+  return deptArr;
 };
 
 const selectRole = () => {
